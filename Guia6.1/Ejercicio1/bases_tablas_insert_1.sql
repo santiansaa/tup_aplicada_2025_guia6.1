@@ -1,38 +1,51 @@
-﻿use master
-Go
-drop DATABASE IF EXISTS guia6_1_Ejercicio1_dB
-
-GO
-CREATE DATABASE guia6_1_Ejercicio1_dB
-GO
-
-USE guia6_1_Ejercicio1_dB
+﻿USE master
 
 GO
 
-create table Figuras(
-id int PRIMARY KEY IDENTITY(1,1),
-Tipo int NOT NULL,
-Area decimal (18,2),
-Ancho DECIMAL (18,2),
-Largo decimal (18,2),
-Radio DECIMAL (18,2));
+DROP DATABASE IF EXISTS Guia6_1_Ejercicio1_Ansa_db
 
+GO
 
+CREATE DATABASE Guia6_1_Ejercicio1_Ansa_db
 
-INSERT INTO Figuras (Tipo,Ancho,Largo,Radio)
+GO
+
+USE Guia6_1_Ejercicio1_Ansa_db
+
+GO
+
+CREATE TABLE Figuras
+(
+	Id INT IDENTITY(1,1),
+	Tipo INT NOT NULL, --	1. Rectangulo | 2. Circulo
+	Ancho NUMERIC(18,2),
+	Largo NUMERIC(18,2),
+	Radio NUMERIC(18,2),
+	Area NUMERIC(18,2)
+	CONSTRAINT PK_Figuras PRIMARY KEY (Id)
+)
+
+GO
+
+INSERT INTO Figuras (Tipo, Ancho, Largo, Radio)
 VALUES
-(1,1,1,NULL),
-(1,1,2,NULL),
-(2,1,2,NULL),
-(2,NULL,NULL,2.1);
+(1,1,1, NULL),
+(1,1,2, NULL),
+(1,2.2,1, NULL),
+(2,NULL,NULL,1),
+(2,NULL,NULL,2.1)
+
+GO
 
 SELECT f.Id,
-       TIPO=case when f.Tipo=1 then 'Rectangulo'
-       when f.Tipo=2 then 'Circulo'
-       ELSE 'NO Identificado'
-       End,
-       f.Area,
-       f.Ancho,
-       f.Largo
+		CASE WHEN f.Tipo = 1 THEN 'Rectangulo'
+			WHEN f.Tipo = 2 THEN 'Circulo'
+			ELSE 'No identificado'
+			END AS Tipo,
+		f.Area,
+		f.Ancho,
+		f.Largo,
+		f.Radio
 FROM Figuras f
+
+GO
